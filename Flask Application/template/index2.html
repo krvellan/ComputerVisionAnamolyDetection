@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Webpage</title>
+    <style>
+        .body {
+            margin: 0;
+            padding: 0;
+            background-color: #1338BE;
+        }
+
+        .anomalybox-p {
+            color: #FFF;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            background-color: #1338BE;
+        }
+
+        .left-box {
+            background-color: #F9A603;
+            width: 3.5in;
+            height: 10%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .video {
+            flex: 1 0 40%;
+            margin: 10px;
+        }
+
+        .video-container {
+            width: calc(100% - 4in);
+            height: 960px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 20px;
+            border-radius: 10px;
+        }
+
+        .video-box {
+            width: calc(50% - 20px);
+            height: 400px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+
+        .video-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .video-box h3 {
+            margin: 0;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #F9A603;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .anomaly-box {
+            display: none;
+            align-items: center;
+            justify-content: left;
+            background-color: #1338BE;
+            border-radius: 10px;
+            width: 3.5in;
+            height: 1in;
+            box-sizing: border-box;
+            padding: 30px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .anomaly-box:hover {
+            background-color: #0492c2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left-box" style="height: 960px">
+        <h3 style="color:crimson; font-size: 30px; text-align: center;">ALERTS</h3>
+        <div id="anomalyBox" class="anomaly-box" onclick="playVideo()">
+            <p style="color: #FFF;">Anomaly detected<br>
+            Video: Door Open<br>
+            Audio: Normal<br>
+            Notification Sent</p>
+        </div>
+        <br>
+        <!--
+        <div id="anomalyAudioBox" class="anomaly-box">
+            <p style="color: #FFF;">Anomaly detected<br>
+            Video: Normal<br>
+            Audio: M16<br>
+            Notification Sent</p>
+        </div>
+        -->
+        <script>
+            var anomalyBox1 = document.getElementById("anomalyBox");
+            //var anomalyBox2 = document.getElementById("anomalyAudioBox");
+    
+            window.onload = function() {
+                setTimeout(function() {
+                    anomalyBox1.style.display = "flex";
+                }, 500); // show the first box after 3 seconds
+    
+                //setTimeout(function() {
+                    //anomalyBox2.style.display = "flex";
+                //}, 8000); // show the second box after 8 seconds
+            }
+        </script>
+    </div>
+    <div class="video-container">
+        <div class="video-box">
+            <h3>Front View</h3>
+            <video controls autoplay muted>
+                <source src="door_demo.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+        <div class="video-box">
+            <h3>Left View</h3>
+            <video controls autoplay muted>
+                <source src="left1.mov" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+        <div class="video-box">
+            <h3>Back View</h3>
+            <video controls autoplay muted>
+                <source src="back.mov" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+        <div class="video-box">
+            <h3>Right View</h3>
+            <video controls autoplay muted>
+                <source src="right.mov" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+    </div>
+    <script>
+        function playVideo() {
+          // create video element
+          const video = document.createElement("video");
+          video.src = "door_demo.mp4";
+          video.autoplay = true;
+          video.muted = true;
+          video.loop = true;
+          video.currentTime = 3; // start at 10 seconds
+          video.style.position = "absolute";
+          video.style.top = "0";
+          video.style.left = "0";
+          video.style.width = "100%";
+          video.style.height = "100%";
+          video.style.zIndex = "9999";
+        
+          // create close button
+          const closeButton = document.createElement("button");
+          closeButton.textContent = "Close";
+          closeButton.style.position = "absolute";
+          closeButton.style.top = "10px";
+          closeButton.style.right = "10px";
+          closeButton.style.zIndex = "10000";
+        
+          // add event listener to close button
+          closeButton.addEventListener("click", function() {
+            // remove video and close button from body
+            document.body.removeChild(video);
+            document.body.removeChild(closeButton);
+          });
+        
+          // add video and close button to body
+          document.body.appendChild(video);
+          document.body.appendChild(closeButton);
+        }
+    </script>     
+</div>
+</body>
+</html>
